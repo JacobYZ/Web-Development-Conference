@@ -21,7 +21,7 @@
                 @foreach ($submissions as $submission)
                     <tr>
                         <td>{{ $submission->id }}</td>
-                        <td>{{ $submission->author->first_name }} {{ $submission->author->last_name }}</td>
+                        <td>{{ $submission->author->name }}</td>
                         {{-- <td>{{ $submission->type->description }}</td> --}}
                         <td><a href="{{ route('submissions.show', $submission->id) }}"> {{ $submission->title }}</a></td>
                         <td>{{ $submission->abstract }}</td>

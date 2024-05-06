@@ -5,7 +5,7 @@
     <div class="container mt-5">
         <div class="mb-3">
             <label for="name" class="form-label">Author</label>
-            <p id="name">{{ $submission->author->first_name }} {{ $submission->author->last_name }}</p>
+            <p id="name">{{ $submission->author->name }}</p>
         </div>
         {{-- <div class="mb-3">
       <label for="type" class="form-label">Type of paper</label>

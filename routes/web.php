@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\SubmissionsController;
+use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('submissions', SubmissionsController::class);
+Route::resource('submissions', SubmissionController::class);
+Route::post('/submissions/storeSubmission', [SubmissionController::class, 'storeSubmission'])->name('submissions.storeSubmission');
 Route::get('/', function () {
     return view('main');
 })->name('home');
@@ -21,3 +22,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('login');
+Route::post('/participant/check', [SubmissionController::class, 'store'])->name('participant.check');
+Route::get('/submissions/create', [SubmissionController::class, 'create'])->name('submissions.create');

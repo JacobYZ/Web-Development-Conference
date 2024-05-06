@@ -17,10 +17,9 @@ class ParticipantFactory extends Factory
     public function definition()
     {
         return [
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
+            'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'affiliation' => $this->faker->company,
+            'affiliate' => $this->faker->company,
         ];
     }
 }
