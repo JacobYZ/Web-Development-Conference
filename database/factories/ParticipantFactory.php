@@ -20,6 +20,7 @@ class ParticipantFactory extends Factory
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'affiliate' => $this->faker->company,
+            // 'role_id' => 1,
         ];
     }
 }

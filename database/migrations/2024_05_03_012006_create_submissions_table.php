@@ -17,9 +17,10 @@ return new class extends Migration {
             $table->unsignedInteger('author_id');
             $table->string('title');
             $table->text('abstract');
+            $table->decimal('score', 2, 1)->nullable();
             $table->timestamps();
             $table->foreign('author_id')->references('id')->on('participants')->onDelete('cascade');
-            
+
         });
     }
 

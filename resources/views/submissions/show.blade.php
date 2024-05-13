@@ -39,6 +39,12 @@
             <label for="abstract" class="form-label">Abstract</label>
             <p id="abstract">{{ $submission->abstract }}</p>
         </div>
+        @if (auth()->user()->role_id == 1)
+            <div class="mb-3">
+                <label for="score" class="form-label">Score</label>
+                <p id="score">{{ $submission->score }}</p>
+            </div>
+        @endif
         <a href="{{ route('submissions.index') }}" class="btn btn-sm btn-secondary">Back</a>
     </div>
 </x-layout>

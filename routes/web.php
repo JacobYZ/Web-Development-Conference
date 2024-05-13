@@ -13,14 +13,22 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('submissions', SubmissionController::class);
-Route::post('/submissions/storeSubmission', [SubmissionController::class, 'storeSubmission'])->name('submissions.storeSubmission');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('submissions', SubmissionController::class);
+    Route::post('/submissions/storeSubmission', [SubmissionController::class, 'storeSubmission'])->name('submissions.storeSubmission');
+    Route::get('/submissions/create', [SubmissionController::class, 'create'])->name('submissions.create');
+});
+Route::get('/submissions/{submission}/edit', [SubmissionController::class, 'edit'])->middleware('auth', 'role')->name('submissions.edit');
+Route::delete('/submissions/{submission}', [SubmissionController::class, 'destroy'])->middleware('auth', 'role')->name('submissions.destroy');
+
+// Route::resource('submissions', SubmissionController::class);
+// Route::post('/submissions/storeSubmission', [SubmissionController::class, 'storeSubmission'])->name('submissions.storeSubmission');
 Route::get('/', function () {
     return view('main');
-})->name('home');
+})->name('main');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('login');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/participant/check', [SubmissionController::class, 'store'])->name('participant.check');
-Route::get('/submissions/create', [SubmissionController::class, 'create'])->name('submissions.create');
+// Route::get('/submissions/create', [SubmissionController::class, 'create'])->name('submissions.create');

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Submission extends Model
 {
     use HasFactory;
-    protected $fillable = ['author_id', 'title', 'abstract'];
+    protected $fillable = ['author_id', 'title', 'abstract', 'score'];
     public function author()
     {
         return $this->belongsTo(Participant::class, 'author_id');

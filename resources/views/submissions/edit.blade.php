@@ -28,8 +28,7 @@
             </div>
             <div class="mb-3">
                 <label for="abstract" class="form-label">Abstract</label>
-                <input type="text" class="form-control" id="abstract" name="abstract"
-                    value="{{ $submission->abstract }}" required>
+                <textarea class="form-control" id="abstract" name="abstract" required>{{ $submission->abstract }}</textarea>
             </div>
             <a href="{{ route('submissions.index') }}" class="btn btn-sm btn-secondary">Cancel</a>
             <button type="submit" class="btn btn-sm btn-primary">Update</button>

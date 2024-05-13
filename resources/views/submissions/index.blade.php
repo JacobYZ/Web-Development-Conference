@@ -12,9 +12,11 @@
                     {{-- <td>Type</td> --}}
                     <td>Title</td>
                     <td>Abstract</td>
-                    {{-- <td>Location</td>
-                    <td>Scores</td> --}}
-                    <td colspan="3">Action</td>
+                    {{-- <td>Location</td> --}}
+                    @if (auth()->user()->role_id == 1)
+                        <td>Score</td>
+                        <td colspan="3">Action</td>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -27,21 +29,24 @@
                         <td>{{ $submission->abstract }}</td>
                         {{-- <td>{{ $submission->type->location }}</td>
                         <td>{{ $submission->review->average('result') }}</td> --}}
-                        <td>
-                            <button type="button" id="{{ $submission->id }}" class="btn btn-sm btn-primary"
-                                onclick="loadData(this.id)">Reviewer</button>
-                        </td>
-                        <td>
-                            <a href="{{ route('submissions.edit', $submission->id) }}"
-                                class="btn btn-sm btn-warning">Edit</a>
-                        </td>
-                        <td>
-                            <form action="{{ route('submissions.destroy', $submission->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                        </td>
+                        @if (auth()->user()->role_id == 1)
+                            <td>{{ $submission->score }}</td>
+                            <td>
+                                <button type="button" id="{{ $submission->id }}" class="btn btn-sm btn-primary"
+                                    onclick="loadData(this.id)">Reviewer</button>
+                            </td>
+                            <td>
+                                <a href="{{ route('submissions.edit', $submission->id) }}"
+                                    class="btn btn-sm btn-warning">Edit</a>
+                            </td>
+                            <td>
+                                <form action="{{ route('submissions.destroy', $submission->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

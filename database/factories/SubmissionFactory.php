@@ -21,6 +21,7 @@ class SubmissionFactory extends Factory
             'author_id' => \App\Models\User::factory(),
             'title' => $this->faker->sentence,
             'abstract' => $this->faker->paragraph,
+            'score' => $this->faker->randomFloat(1, 0, 5),
         ];
     }
 }
