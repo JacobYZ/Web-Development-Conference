@@ -1,64 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel Installation Guide
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This guide will walk you through the process of installing Laravel in your `groupwork` folder on the `ictteach` server.
 
-## About Laravel
+## Steps
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. Open a terminal and connect to your individual folder on the `ictteach` server via SSH.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+2. Navigate to the `public_html` folder in your individual folder:
+    ```bash
+    cd ~/public_html/
+    ```
+3. Run the following command to create a new Laravel project in the public_html folder:
+    ```bash
+    laravel-install
+    ```
+    If you encounter an error message like `/var/www/html/your_username/myApp already exists. Delete or move it if you want a fresh copy.`, rename the existing folder and run the command again. For example:
+    ```bash
+      mv myApp myApp1
+    ```
+    Then run the command again:
+    ```bash
+      laravel-install
+    ```
+4. You can visit the Laravel project in your browser by visiting the following URL: `https://ictteach-www.its.utas.edu.au/your_username/myApp/public/index.php`
+5. In the new Laravel project, create a new SQLite database in the `database` folder and change the permission of the database file:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    ```bash
+    cd myApp
+    touch database/database_name.db
+    chmod 777 database/database_name.db
+    ```
 
-## Learning Laravel
+6. In the `myApp/config/database.php` file, change the default database connection to SQLite on line 18:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```php
+'default' => env('DB_CONNECTION', 'sqlite'),
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+7. In the same `myApp/config/database.php` file, change the SQLite database connection on line 41:
 
-## Laravel Sponsors
+```php
+'database' => env('DB_DATABASE') ? database_path(env('DB_DATABASE')) : null,
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+8. In the `myApp/.env` file, change the database connection to SQLite:
 
-### Premium Partners
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=database_name.db
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+9. Run the following command to create the tables in the SQLite database:
 
-## Contributing
+```bash
+php artisan migrate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+10. Navigate to the following URL to register a new user in the Laravel project: `https://ictteach-www.its.utas.edu.au/your_username/myApp/public/index.php/register`
 
-## Code of Conduct
+11. Verify that you can register a new user and login successfully.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+12. Move the newly created Laravel project to your `groupwork` folder:
 
-## Security Vulnerabilities
+```bash
+cd ..
+mv myApp /groupwork/kit502-group-##/
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+13. Check the Laravel project in the browser by visiting the following URL: `https://ictteach-www.its.utas.edu.au/groupwork/kit502-group-##/myApp/public/index.php`
 
-## License
+14. In your `~/public_html/phpliteadmin/phpliteadmin.config.php`, change the following line to add the new SQLite database:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```php
+$directory = '/groupwork/kit502-group-##/myApp/database/';
+```
+
+15. You can visit the SQLite database in the browser by visiting the following URL: `https://ictteach-www.its.utas.edu.au/your_username/phpliteadmin/index.php`
