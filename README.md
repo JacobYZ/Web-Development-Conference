@@ -1,6 +1,7 @@
 # Laravel Installation Guide
 
 This guide will walk you through the process of installing Laravel in your `groupwork` folder on the `ictteach` server.
+**Please replace `your_username` and `kit502-group-##` with the actual values.**
 
 ## Steps
 
@@ -16,11 +17,11 @@ This guide will walk you through the process of installing Laravel in your `grou
     ```
     If you encounter an error message like `/var/www/html/your_username/myApp already exists. Delete or move it if you want a fresh copy.`, rename the existing folder and run the command again. For example:
     ```bash
-      mv myApp myApp1
+    mv myApp myApp1
     ```
     Then run the command again:
     ```bash
-      laravel-install
+    laravel-install
     ```
 4. You can visit the Laravel project in your browser by visiting the following URL: `https://ictteach-www.its.utas.edu.au/your_username/myApp/public/index.php`
 5. In the new Laravel project, create a new SQLite database in the `database` folder and change the permission of the database file:
@@ -33,28 +34,28 @@ This guide will walk you through the process of installing Laravel in your `grou
 
 6. In the `myApp/config/database.php` file, change the default database connection to SQLite on line 18:
 
-```php
-'default' => env('DB_CONNECTION', 'sqlite'),
-```
+    ```php
+    'default' => env('DB_CONNECTION', 'sqlite'),
+    ```
 
 7. In the same `myApp/config/database.php` file, change the SQLite database connection on line 41:
 
-```php
-'database' => env('DB_DATABASE') ? database_path(env('DB_DATABASE')) : null,
-```
+    ```php
+    'database' => env('DB_DATABASE') ? database_path(env('DB_DATABASE')) : null,
+    ```
 
 8. In the `myApp/.env` file, change the database connection to SQLite:
 
-```env
-DB_CONNECTION=sqlite
-DB_DATABASE=database_name.db
-```
+    ```env
+    DB_CONNECTION=sqlite
+    DB_DATABASE=database_name.db
+    ```
 
 9. Run the following command to create the tables in the SQLite database:
 
-```bash
-php artisan migrate
-```
+    ```bash
+    php artisan migrate
+    ```
 
 10. Navigate to the following URL to register a new user in the Laravel project: `https://ictteach-www.its.utas.edu.au/your_username/myApp/public/index.php/register`
 
@@ -62,17 +63,17 @@ php artisan migrate
 
 12. Move the newly created Laravel project to your `groupwork` folder:
 
-```bash
-cd ..
-mv myApp /groupwork/kit502-group-##/
-```
+    ```bash
+    cd ..
+    mv myApp /groupwork/kit502-group-##/
+    ```
 
 13. Check the Laravel project in the browser by visiting the following URL: `https://ictteach-www.its.utas.edu.au/groupwork/kit502-group-##/myApp/public/index.php`
 
 14. In your `~/public_html/phpliteadmin/phpliteadmin.config.php`, change the following line to add the new SQLite database:
 
-```php
-$directory = '/groupwork/kit502-group-##/myApp/database/';
-```
+    ```php
+    $directory = '/groupwork/kit502-group-##/myApp/database/';
+    ```
 
 15. You can visit the SQLite database in the browser by visiting the following URL: `https://ictteach-www.its.utas.edu.au/your_username/phpliteadmin/index.php`
