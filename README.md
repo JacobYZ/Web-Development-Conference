@@ -11,7 +11,7 @@ This guide will walk you through the process of installing Laravel in your `grou
     ```bash
     cd ~/public_html/
     ```
-3. Run the following command to create a new Laravel project in the public_html folder:
+3. Run the following command to create a new Laravel project in the `public_html` folder:
     ```bash
     laravel-install
     ```
@@ -38,7 +38,7 @@ This guide will walk you through the process of installing Laravel in your `grou
     'default' => env('DB_CONNECTION', 'sqlite'),
     ```
 
-7. In the same `myApp/config/database.php` file, change the SQLite database connection on line 41:
+7. In the same `myApp/config/database.php` file, change the database path to the SQLite database on line 41:
 
     ```php
     'database' => env('DB_DATABASE') ? database_path(env('DB_DATABASE')) : null,
