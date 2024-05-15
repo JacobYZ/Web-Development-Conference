@@ -4,7 +4,7 @@
     </div>
     <div class="container mt-5">
         <div class="mb-3">
-            <label for="name" class="form-label">Author</label>
+            <label for="name" class="form-label h5">Author</label>
             <p id="name">{{ $submission->author->name }}</p>
         </div>
         {{-- <div class="mb-3">
@@ -32,16 +32,16 @@
       </p>
     </div> --}}
         <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
+            <label for="title" class="form-label h5">Title</label>
             <p id="title">{{ $submission->title }}</p>
         </div>
         <div class="mb-3">
-            <label for="abstract" class="form-label">Abstract</label>
+            <label for="abstract" class="form-label h5">Abstract</label>
             <p id="abstract">{{ $submission->abstract }}</p>
         </div>
         @if (auth()->user()->role_id == 1)
             <div class="mb-3">
-                <label for="score" class="form-label">Score</label>
+                <label for="score" class="form-label h5">Score</label>
                 <p id="score">{{ $submission->score }}</p>
             </div>
         @endif

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Participant;
+use App\Models\User;
 use App\Models\Submission;
 use Illuminate\Http\Request;
 
@@ -24,62 +24,39 @@ class SubmissionController extends Controller
         return view('submissions.create');
     }
 
+
     public function store(Request $request)
     {
-        $participant = Participant::with('submissions')->where('email', $request->email)->first();
-        if (!$participant) {
-            $participant = Participant::create([
-                'name' => $request->author,
-                'email' => $request->email,
-                'affiliate' => $request->affiliate,
-            ]);
-            session([
-                'author_id' => $participant->id,
-                'author_name' => $participant->name,
-                'author_email' => $participant->email,
-                'author_affiliate' => $participant->affiliate,
-            ]);
-            return redirect()->route('submissions.create')->with('continue_submission', true);
+        if (auth()->user()->email !== $request->email) {
+            $this->storeAuthorDetailsInSession();
+            return redirect()->route('submissions.create')->with('error', 'You are not authorized to submit a paper on behalf of another author.');
         }
 
-        // Update session info regardless of submission status
-        session([
-            'author_id' => $participant->id,
-            'author_name' => $participant->name,
-            'author_email' => $participant->email,
-            'author_affiliate' => $participant->affiliate,
-        ]);
+        $this->storeAuthorDetailsInSession();
 
-        // The relationship between Participant and Submission is one-to-one
-        // Check if a submission already exists for the participant
-        if ($participant->submissions === null) {
-            // No submission exists, redirect to the submission form
+        if (auth()->user()->submissions === null) {
             return redirect()->route('submissions.create')->with('continue_submission', true);
         } else {
-            // Fetch the latest submission details from the database
-            $submission = Submission::where('author_id', $participant->id)->latest()->first();
+            $submission = Submission::where('author_id', auth()->id())->latest()->first();
 
-            // Store submission details in the session
             session([
                 'submission_type' => $submission->type,
                 'submission_title' => $submission->title,
                 'submission_abstract' => $submission->abstract,
             ]);
+
             return redirect()->route('submissions.create')->with('has_submission', true);
         }
     }
 
     public function storeSubmission(Request $request)
     {
-        // Validate the request data
         $request->validate([
             'title' => 'required',
             'abstract' => 'required',
-            // Add validation rules for other fields
         ]);
 
-        // Create the Submission
-        $submission = Submission::create([
+        Submission::create([
             'title' => $request->title,
             'abstract' => $request->abstract,
             'keywords' => $request->keywords,
@@ -87,6 +64,16 @@ class SubmissionController extends Controller
         ]);
 
         return redirect()->route('submissions.index')->with('continue_submission', true);
+    }
+
+    private function storeAuthorDetailsInSession()
+    {
+        session([
+            'author_id' => auth()->id(),
+            'author_name' => auth()->user()->name,
+            'author_email' => auth()->user()->email,
+            'author_affiliate' => auth()->user()->affiliate,
+        ]);
     }
 
 

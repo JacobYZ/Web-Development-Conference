@@ -11,6 +11,6 @@ class Submission extends Model
     protected $fillable = ['author_id', 'title', 'abstract', 'score'];
     public function author()
     {
-        return $this->belongsTo(Participant::class, 'author_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 }

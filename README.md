@@ -1,7 +1,8 @@
 # KIT502: Laravel Installation Guide for Groupwork
 
 This guide will walk you through the process of installing Laravel in your `groupwork` folder on the `ictteach` server.
-**Please replace `your_username` and `kit502-group-##` with the actual values.**
+
+***Please replace `your_username` and `kit502-group-##` with the actual values.***
 
 ## Steps
 
@@ -17,7 +18,7 @@ This guide will walk you through the process of installing Laravel in your `grou
     ```
     If you encounter an error message like `/var/www/html/your_username/myApp already exists. Delete or move it if you want a fresh copy.`, rename the existing folder and run the command again. For example:
     ```bash
-    mv myApp myApp1
+    mv myApp renamed_myApp
     ```
     Then run the command again:
     ```bash

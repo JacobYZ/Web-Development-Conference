@@ -18,7 +18,8 @@ return new class extends Migration {
             $table->unsignedInteger('role_id')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('affiliate', 100);
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

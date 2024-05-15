@@ -30,5 +30,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/participant/check', [SubmissionController::class, 'store'])->name('participant.check');
+Route::post('/user/check', [SubmissionController::class, 'store'])->name('user.check');
 // Route::get('/submissions/create', [SubmissionController::class, 'create'])->name('submissions.create');

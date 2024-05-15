@@ -3,6 +3,11 @@
         <h1>Submit a New Paper</h1>
         <div class="row">
             <div class="col">
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 @if (session('has_submission'))
                     <ul>
                         <li>Author: {{ session('author_name') }}</li>
@@ -62,7 +67,7 @@
                     </div>
                 @else
                     <!-- Initial form to gather author info -->
-                    <form method="post" action="{{ route('participant.check') }}">
+                    <form method="post" action="{{ route('user.check') }}">
                         @csrf
                         <div class="form-group">
                             <label for="author">Author</label>

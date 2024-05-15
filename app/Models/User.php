@@ -21,9 +21,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'affiliate',
         'role_id'
     ];
-
+    public function submissions()
+    {
+        return $this->hasOne(Submission::class, 'author_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->text('abstract');
             $table->decimal('score', 2, 1)->nullable();
             $table->timestamps();
-            $table->foreign('author_id')->references('id')->on('participants')->onDelete('cascade');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }
