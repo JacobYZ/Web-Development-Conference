@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +27,8 @@ Route::delete('/submissions/{submission}', [SubmissionController::class, 'destro
 Route::get('/', function () {
     return view('main');
 })->name('main');
-
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
